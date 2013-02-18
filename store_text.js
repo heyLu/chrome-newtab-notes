@@ -33,3 +33,19 @@ setInterval(function() {
 		req.onerror = console.log.bind(console);
 	}
 }, 500);
+
+writeArea.onkeydown = function(ev) {
+	if (ev.ctrlKey && ev.keyCode == 83) { // Ctrl-S
+		var data = {
+			"name" : "text-" + new Date().toISOString(),
+			"title": writeArea.value.split("\n")[0] || writeArea.value,
+			"text" :writeArea.value
+		};
+		var req = db.transaction(["texts"], "readwrite").objectStore("texts").put(data);
+		req.onsuccess = function(ev) {
+			console.log("Written text " + data.name, data);
+		}
+		
+		ev.preventDefault();
+	}
+}
