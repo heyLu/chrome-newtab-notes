@@ -1,0 +1,11 @@
+{
+	"name": "focus",
+	"version": "0.0.1",
+	"manifest_version": 2,
+
+	"description": "Change the newtab-page to a whole-page writing area.",
+
+	"chrome_url_overrides": {
+		"newtab" : "newtab.html"
+	}
+}
