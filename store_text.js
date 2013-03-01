@@ -17,6 +17,13 @@ req.onsuccess = function(ev) {
 	req.onsuccess = function(ev) {
 		console.log(ev.target.result);
 		lastText = writeArea.value = ev.target.result.text;
+		
+		list_texts(function(texts) {
+			var alldocs = document.querySelector("#alldocs");
+			for (var i=0; i < texts.length; i++) {
+				alldocs.innerHTML += (texts[i].title || texts[i].name).slice(0, 20) + "\n";
+			}
+		});
 	}
 }
 
@@ -47,5 +54,19 @@ writeArea.onkeydown = function(ev) {
 		}
 		
 		ev.preventDefault();
+	}
+}
+
+var list_texts = function(cb) {
+	var req = db.transaction("texts").objectStore("texts").openCursor();
+	var texts = [];
+	req.onsuccess = function(ev) {
+		var cursor = ev.target.result;
+		if(cursor) {
+			texts.push(cursor.value);
+			cursor.continue();
+		} else {
+			cb(texts);
+		}
 	}
 }
