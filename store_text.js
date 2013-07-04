@@ -20,8 +20,18 @@ req.onsuccess = function(ev) {
 		
 		list_texts(function(texts) {
 			var alldocs = document.querySelector("#alldocs");
+			var ul = document.createElement("ul");
+			alldocs.appendChild(ul);
 			for (var i=0; i < texts.length; i++) {
-				alldocs.innerHTML += (texts[i].title || texts[i].name).slice(0, 20) + "\n";
+				var li = document.createElement("li");
+				var a = document.createElement("a");
+				a.innerHTML = (texts[i].title || texts[i].name).slice(0, 20);
+				var t = texts[i];
+				a.onclick = function() {
+					lastText = writeArea.value = t.text;
+				}
+				li.appendChild(a);
+				ul.appendChild(li);
 			}
 		});
 	}
