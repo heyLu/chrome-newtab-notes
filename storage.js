@@ -2,7 +2,7 @@ store_locally = function(doc) {
 	localStorage['org.papill0n.notes.current'] = JSON.stringify(doc);
 }
 
-store_remote = function(doc) {
+store_remote = function(doc, cb) {
 	if (!localStorage['org.papill0n.notes.settings']) {
 		alert('you need to configure() before saving remotely');
 		return;
@@ -12,7 +12,8 @@ store_remote = function(doc) {
 		verb: 'POST',
 		url: "https://api.github.com/gists/"
 			+ settings.gist_id
-			+ mkparams({access_token: settings.access_token})
+			+ mkparams({access_token: settings.access_token}),
+		cb: cb
 	}).send(JSON.stringify(gist_from_doc(doc)));
 }
 

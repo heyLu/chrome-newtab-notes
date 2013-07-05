@@ -17,6 +17,15 @@ margin: 0;
 		border: none;
 		outline: none;
 	}
+
+	#notifications {
+		position: absolute;
+
+		bottom: 0;
+		right: 0;
+
+		font-family: monospace;
+	}
 	</style>
 </head>
 
@@ -24,6 +33,8 @@ margin: 0;
 
 <textarea id="write" spellcheck="false">
 </textarea>
+
+<span id="notifications" />
 
 <script type="text/javascript" src="util.js"></script>
 <script type="text/javascript" src="document.js"></script>
