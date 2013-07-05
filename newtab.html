@@ -28,6 +28,27 @@
 	}
 
 	#notifications span { float: right; text-align: right }
+
+	#notifications ul {
+		margin: 0;
+		float: left;
+		text-align: right;
+		list-style-type: none;
+	}
+
+	#notifications ul li { background-color: #ddd }
+	#notifications ul li:hover { background-color: #ccc }
+
+	#notifications ul li:nth-child(n+2) {
+		transition: opacity 0.5s;
+		opacity: 0;
+		height: 0;
+	}
+
+	#notifications ul:hover li:nth-child(n+2) {
+		height: auto;
+		opacity: 1;
+	}
 	</style>
 </head>
 
@@ -37,6 +58,7 @@
 </textarea>
 
 <div id="notifications">
+	<ul></ul>
 	<span></span>
 </div>
 

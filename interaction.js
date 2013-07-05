@@ -1,5 +1,6 @@
 var notesArea = document.getElementById('write');
 var progressArea = q("#notifications span");
+var notesListArea = q("#notifications ul");
 var readme = "TODO";
 notesArea.value = JSON.parse(localStorage['org.papill0n.notes.current'] || "{}").content || readme;
 
@@ -9,6 +10,7 @@ setInterval(function() {
 
 notesArea.onkeydown = function(ev) {
 	if (ev.ctrlKey && ev.keyCode == 83) { // Ctrl+s
+		progressArea.style.width = '3ex';
 		var storeRemoteProgress = window.setInterval(function() {
 			if (progressArea.textContent.length < 3) {
 				progressArea.textContent += '.';
@@ -29,6 +31,7 @@ notesArea.onkeydown = function(ev) {
 				window.setTimeout(function() {
 					progressArea.textContent = '';
 					progressArea.style.color = 'black';
+					progressArea.style.width = 'auto';
 				}, 5000);
 			}
 		});
