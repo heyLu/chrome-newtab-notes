@@ -2,11 +2,24 @@ var notesArea = document.getElementById('write');
 var progressArea = q("#notifications span");
 var notesListArea = q("#notifications ul");
 var readme = "TODO";
-notesArea.value = JSON.parse(localStorage['org.papill0n.notes.current'] || "{}").content || readme;
+notesArea.value = store_get(store_current()).content || readme;
+
+store_all().forEach(function(name) {
+	notesListArea.innerHTML += "<li>" + name + "</li>";
+});
 
 setInterval(function() {
-	store_locally(doc_parse(notesArea.value));
+	if (notesArea.value.split('\n').length != 1) {
+		store_locally(doc_parse(notesArea.value));
+	}
 }, 500);
+
+notesListArea.onmousedown = function(ev) {
+	store_locally(doc_parse(notesArea.value));
+	var selectedDoc = ev.target.textContent;
+	var doc = store_get(selectedDoc);
+	notesArea.value = doc.content;
+}
 
 notesArea.onkeydown = function(ev) {
 	if (ev.ctrlKey && ev.keyCode == 83) { // Ctrl+s

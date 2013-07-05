@@ -1,5 +1,25 @@
+store_all = function() {
+	var notes = [];
+	var isDoc = function(key) { return ["settings", "current"].every(function(el) { return 'org.papill0n.notes.' + el != key }) };
+	for (name in localStorage) {
+		if (isDoc(name)) {
+			notes.push(name.substring('org.papill0n.notes.'.length));
+		}
+	}
+	return notes;
+}
+
+store_current = function() {
+	return localStorage['org.papill0n.notes.current'] || 'README';
+}
+
+store_get = function(title) {
+	return JSON.parse(localStorage['org.papill0n.notes.' + title] || '{}');
+}
+
 store_locally = function(doc) {
-	localStorage['org.papill0n.notes.current'] = JSON.stringify(doc);
+	localStorage['org.papill0n.notes.current'] = doc.title;
+	localStorage['org.papill0n.notes.' + doc.title] = JSON.stringify(doc);
 }
 
 store_remote = function(doc, cb) {
