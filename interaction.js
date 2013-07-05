@@ -1,5 +1,5 @@
 var notesArea = document.getElementById('write');
-var notificationsArea = document.getElementById('notifications');
+var progressArea = q("#notifications span");
 var readme = "TODO";
 notesArea.value = JSON.parse(localStorage['org.papill0n.notes.current'] || "{}").content || readme;
 
@@ -10,25 +10,25 @@ setInterval(function() {
 notesArea.onkeydown = function(ev) {
 	if (ev.ctrlKey && ev.keyCode == 83) { // Ctrl+s
 		var storeRemoteProgress = window.setInterval(function() {
-			if (notificationsArea.textContent.length < 3) {
-				notificationsArea.textContent += '.';
+			if (progressArea.textContent.length < 3) {
+				progressArea.textContent += '.';
 			} else {
-				notificationsArea.textContent = '.';
+				progressArea.textContent = '.';
 			}
 		}, 250);
 		store_remote(doc_parse(notesArea.value), function(ev) {
 			if (ev.target.readyState == XMLHttpRequest.DONE) {
 				window.clearInterval(storeRemoteProgress);
 				if (ev.target.status == 200) {
-					notificationsArea.textContent = '<3';
-					notificationsArea.style.color = 'green';
+					progressArea.textContent = '<3';
+					progressArea.style.color = 'green';
 				} else {
-					notificationsArea.textContent = ':(';
-					notificationsArea.style.color = 'red';
+					progressArea.textContent = ':(';
+					progressArea.style.color = 'red';
 				}
 				window.setTimeout(function() {
-					notificationsArea.textContent = '';
-					notificationsArea.style.color = 'black';
+					progressArea.textContent = '';
+					progressArea.style.color = 'black';
 				}, 5000);
 			}
 		});
