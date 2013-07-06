@@ -1,3 +1,11 @@
+/**
+ * everything in localStorage under the org.papill0n.notes namespace
+ *
+ * - current: name of the currently loaded note
+ * - settings: gist_id and access_token for remote storage
+ * - *: all notes
+ */
+
 store_all = function() {
 	var notes = [];
 	var isDoc = function(key) { return ["settings", "current"].every(function(el) { return 'org.papill0n.notes.' + el != key }) };
