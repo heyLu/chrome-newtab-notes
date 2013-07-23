@@ -14,8 +14,10 @@ var readme = [
 	"",
 	"<3"
 ].join("\n");
-notesArea.value = store_get(store_current()).content || readme;
-var lastStoredContent = notesArea.value;
+var currentDoc = store_get(store_current());
+notesArea.value = currentDoc.content || readme;
+var lastStoredContent = currentDoc.content;
+document.title = currentDoc.title;
 
 store_all().forEach(function(name) {
 	notesListArea.innerHTML += "<li>" + name + "</li>";
@@ -23,7 +25,9 @@ store_all().forEach(function(name) {
 
 setInterval(function() {
 	if (lastStoredContent != notesArea.value && notesArea.value.split('\n').length != 1) {
-		store_locally(doc_parse(notesArea.value));
+		var doc = doc_parse(notesArea.value);
+		store_locally(doc);
+		document.title = doc.title;
 		lastStoredContent = notesArea.value;
 	}
 }, 500);
