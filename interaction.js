@@ -15,14 +15,16 @@ var readme = [
 	"<3"
 ].join("\n");
 notesArea.value = store_get(store_current()).content || readme;
+var lastStoredContent = notesArea.value;
 
 store_all().forEach(function(name) {
 	notesListArea.innerHTML += "<li>" + name + "</li>";
 });
 
 setInterval(function() {
-	if (notesArea.value.split('\n').length != 1) {
+	if (lastStoredContent != notesArea.value && notesArea.value.split('\n').length != 1) {
 		store_locally(doc_parse(notesArea.value));
+		lastStoredContent = notesArea.value;
 	}
 }, 500);
 
