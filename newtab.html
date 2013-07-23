@@ -8,7 +8,7 @@
 
 	#write {
 		position: absolute;
-margin: 0;
+		margin: 0;
 		padding: 0;
 
 		width: 100%;
@@ -18,15 +18,37 @@ margin: 0;
 		outline: none;
 	}
 
-	#alldocs {
+	#notifications {
 		position: absolute;
+
+		bottom: 0;
+		right: 0;
+
 		font-family: monospace;
-		right: 1%;
-		bottom: 1%;
-		text-align: right;
 	}
 
-	#alldocs ul { list-style: none; }
+	#notifications span { float: right; text-align: right }
+
+	#notifications ul {
+		margin: 0;
+		float: left;
+		text-align: right;
+		list-style-type: none;
+	}
+
+	#notifications ul li { background-color: #ddd }
+	#notifications ul li:hover { background-color: #ccc }
+
+	#notifications ul li:nth-child(n+2) {
+		transition: opacity 0.5s;
+		opacity: 0;
+		height: 0;
+	}
+
+	#notifications ul:hover li:nth-child(n+2) {
+		height: auto;
+		opacity: 1;
+	}
 	</style>
 </head>
 
@@ -35,9 +57,14 @@ margin: 0;
 <textarea id="write" spellcheck="false">
 </textarea>
 
-<div id="alldocs">
+<div id="notifications">
+	<ul></ul>
+	<span></span>
 </div>
 
-<script type="text/javascript" src="store_text.js"></script>
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="document.js"></script>
+<script type="text/javascript" src="storage.js"></script>
+<script type="text/javascript" src="interaction.js"></script>
 </body>
 </html>
