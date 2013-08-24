@@ -3,62 +3,79 @@
 <head>
 	<title>.focus</title>
 	<meta charset="utf-8" />
+	<link rel="stylesheet" href="bootstrap.css" />
 	<style type="text/css">
-	body { overflow: hidden; }
+	html, body { height: 100%; overflow: hidden; }
 
-	#write {
-		position: absolute;
-		margin: 0;
-		padding: 0;
-
-		width: 100%;
+	.full-page {
+		min-height: 100%;
 		height: 100%;
-		
-		border: none;
-		outline: none;
 	}
 
-	#notifications {
-		position: absolute;
+	#write {
+		padding-left: 2.5ex;
 
-		bottom: 0;
-		right: 0;
+		border: none;
+		outline: none;
 
 		font-family: monospace;
 	}
 
-	#notifications span { float: right; text-align: right }
+	#write:focus { width: 100% }
+	#write:focus + #sidebar { visibility: hidden }
 
-	#notifications ul {
-		margin: 0;
-		float: left;
-		text-align: right;
+	#sidebar {
+		display: none;
+
+		padding: 0;
+		padding-right: 15px;
+
+		color: #fff;
+		background-color: #777;
+		font-size: larger;
+	}
+
+	#sidebar:target {
+		display: block;
+	}
+
+	#notifications {
+		padding: 0;
 		list-style-type: none;
 	}
 
-	#notifications ul li { background-color: #ddd }
-	#notifications ul li:hover { background-color: #ccc }
-
-	#notifications ul li:nth-child(n+2) {
-		transition: opacity 0.5s;
-		opacity: 0;
-		height: 0;
+	#notifications li {
+		margin: 1ex 1em;
+		padding: 1ex;
+		border-radius: 2px;
+		background-color: #555;
 	}
 
-	#notifications ul:hover li:nth-child(n+2) {
-		height: auto;
-		opacity: 1;
+	#notifications li:hover { background-color: #333 }
+
+	#sidebar_activator {
+		position: absolute;
+		top: 10%;
+		right: 0;
+
+		width: 1em;
+		height: 10%;
+		color: none;
+		text-decoration: none;
+		background-color: #777;
 	}
 	</style>
 </head>
 
-<body>
+<body class="row">
 
-<textarea id="write" spellcheck="false">
+<textarea id="write" class="full-page col-sm-9 col-xs-12" spellcheck="false">
 </textarea>
 
-<div id="notifications">
-	<ul></ul>
+<a id="sidebar_activator" href="#sidebar" alt="show sidebar"></a>
+
+<div id="sidebar" class="full-page col-sm-3">
+	<ul id="notifications"></ul>
 	<span></span>
 </div>
 

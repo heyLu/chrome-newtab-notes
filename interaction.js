@@ -1,6 +1,6 @@
 var notesArea = document.getElementById('write');
-var progressArea = q("#notifications span");
-var notesListArea = q("#notifications ul");
+var progressArea = q("#sidebar_activator");
+var notesListArea = q("#notifications");
 var readme = [
 	"README",
 	"",
@@ -41,7 +41,6 @@ notesListArea.onmousedown = function(ev) {
 
 notesArea.onkeydown = function(ev) {
 	if (ev.ctrlKey && ev.keyCode == 83) { // Ctrl+s
-		progressArea.style.width = '3ex';
 		var storeRemoteProgress = window.setInterval(function() {
 			if (progressArea.textContent.length < 3) {
 				progressArea.textContent += '.';
@@ -53,16 +52,12 @@ notesArea.onkeydown = function(ev) {
 			if (ev.target.readyState == XMLHttpRequest.DONE) {
 				window.clearInterval(storeRemoteProgress);
 				if (ev.target.status == 200) {
-					progressArea.textContent = '<3';
-					progressArea.style.color = 'green';
+					progressArea.style.backgroundColor= 'green';
 				} else {
-					progressArea.textContent = ':(';
-					progressArea.style.color = 'red';
+					progressArea.style.backgroundColor = 'red';
 				}
 				window.setTimeout(function() {
-					progressArea.textContent = '';
-					progressArea.style.color = 'black';
-					progressArea.style.width = 'auto';
+					progressArea.style.backgroundColor = '#777';
 				}, 5000);
 			}
 		});
